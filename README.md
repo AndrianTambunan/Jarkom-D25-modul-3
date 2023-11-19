@@ -161,6 +161,7 @@ subnet 10.34.3.0 netmask 255.255.255.0 {
 ```
 ## Soal 3
 Client yang melalui Switch4 mendapatkan range IP dari [prefix IP].4.12 - [prefix IP].4.20 dan [prefix IP].4.160 - [prefix IP].4.168
+```
 echo 'subnet 10.34.1.0 netmask 255.255.255.0 {
 }
 
@@ -186,5 +187,5 @@ subnet 10.34.4.0 netmask 255.255.255.0 {
     default-lease-time 720;
     max-lease-time 5760;
 }' > /etc/dhcp/dhcpd.conf
-
+```
 
