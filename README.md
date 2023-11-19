@@ -6,6 +6,7 @@
 | 2 | Sandhika Surya Ardyanto | 5025211022 |
 
 ## Topologi dan Konfigurasi Node
+![image](https://github.com/AndrianTambunan/Jarkom-D25-modul-3/assets/100081922/c1be771a-534a-4e59-a14a-c6d64beea362)
 ### Aura (DHCP Relay)
 ```
 # DHCP config for eth0
@@ -191,65 +192,6 @@ subnet 10.34.4.0 netmask 255.255.255.0 {
 
 ## Soal 4
 Client mendapatkan DNS dari Heiter dan dapat terhubung dengan internet melalui DNS tersebut
-
-### Pada Himmel (DHCP Server) di /root/.bashrc
-```
-echo 'nameserver 192.168.122.1' > /etc/resolv.conf
-apt-get update
-apt-get install isc-dhcp-server -y
-
-echo 'INTERFACES="eth0" ' > /etc/default/isc-dhcp-server
-
-echo 'default-lease-time 600;
-max-lease-time 7200;
-
-authoritative;
-
-subnet 10.34.1.0 netmask 255.255.255.0 {
-}
-
-subnet 10.34.2.0 netmask 255.255.255.0 {
-}
-
-subnet 10.34.3.0 netmask 255.255.255.0 {
-    range 10.34.3.16 10.34.3.32;
-    range 10.34.3.64 10.34.3.80;
-    option routers 10.34.3.200;
-    option broadcast-address 10.34.3.255;
-    option domain-name-servers 10.34.1.2;
-    default-lease-time 180;
-    max-lease-time 5760;
-}
-
-subnet 10.34.4.0 netmask 255.255.255.0 {
-    range 10.34.4.12 10.34.4.20;
-    range 10.34.4.160 10.34.4.168;
-    option routers 10.34.4.200;
-    option broadcast-address 10.34.4.255;
-    option domain-name-servers 10.34.1.2;
-    default-lease-time 720;
-    max-lease-time 5760;
-}' > /etc/dhcp/dhcpd.conf
-
-service isc-dhcp-server restart
-service isc-dhcp-server status
-```
-
-### Pada Aura (DHCP Relay) di /root/.bashrc
-```
-apt-get update
-apt-get install isc-dhcp-relay -y
-service isc-dhcp-relay start
-
-echo 'SERVERS="10.34.1.1"
-INTERFACES="eth3 eth4"
-OPTIONS=""' > /etc/default/isc-dhcp-relay
-
-echo 'net.ipv4.ip_forward=1' > /etc/sysctl.conf
-
-service isc-dhcp-relay restart
-```
-
 
 
 
