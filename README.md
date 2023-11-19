@@ -70,7 +70,7 @@ iface eth0 inet static
 	gateway 10.34.2.200
 ```
 ## Soal 0
-Setelah mengalahkan Demon King, perjalanan berlanjut. Kali ini, kalian diminta untuk melakukan register domain berupa riegel.canyon.yyy.com untuk worker Laravel dan granz.channel.yyy.com untuk worker PHP (0) mengarah pada worker yang memiliki IP [prefix IP].x.1.
+Setelah mengalahkan Demon King, perjalanan berlanjut. Kali ini, kalian diminta untuk melakukan register domain berupa `riegel.canyon.yyy.com` untuk worker Laravel dan granz.channel.yyy.com untuk worker PHP (0) mengarah pada worker yang memiliki `IP [prefix IP].x.1.`
 
 ### Pada Heiter di /root/.bashrc
 ```
@@ -134,14 +134,14 @@ service bind9 restart
 ## Soal 1
 Semua CLIENT harus menggunakan konfigurasi dari DHCP Server
 
-Membuat konfigurasi pada semua node client yaitu Stark, Sein, Revolte, dan Richter di /etc/network/interfaces
+Membuat konfigurasi pada semua node client yaitu `Stark, Sein, Revolte, dan Richter` di `/etc/network/interfaces`
 ```
 auto eth0
 iface eth0 inet dhcp
 ```
 
 ## Soal 2
-Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.16 - [prefix IP].3.32 dan [prefix IP].3.64 - [prefix IP].3.80 
+Client yang melalui Switch3 mendapatkan range IP dari `[prefix IP].3.16 - [prefix IP].3.32` dan `[prefix IP].3.64 - [prefix IP].3.80`
 
 ```
 echo 'subnet 10.34.1.0 netmask 255.255.255.0 {
@@ -161,7 +161,7 @@ subnet 10.34.3.0 netmask 255.255.255.0 {
 }' > /etc/dhcp/dhcpd.conf
 ```
 ## Soal 3
-Client yang melalui Switch4 mendapatkan range IP dari [prefix IP].4.12 - [prefix IP].4.20 dan [prefix IP].4.160 - [prefix IP].4.168
+Client yang melalui Switch4 mendapatkan range IP dari `[prefix IP].4.12 - [prefix IP].4.20` dan `[prefix IP].4.160 - [prefix IP].4.168`
 ```
 echo 'subnet 10.34.1.0 netmask 255.255.255.0 {
 }
@@ -191,7 +191,62 @@ subnet 10.34.4.0 netmask 255.255.255.0 {
 ```
 
 ## Soal 4
-Client mendapatkan DNS dari Heiter dan dapat terhubung dengan internet melalui DNS tersebut
+Client mendapatkan DNS dari `Heiter` dan dapat terhubung dengan internet melalui DNS tersebut
 
+### Pada Himmel (DHCP Server) di `/root/.bashrc`
+```
+echo 'nameserver 192.168.122.1' > /etc/resolv.conf
+apt-get update
+apt-get install isc-dhcp-server -y
 
+echo 'INTERFACES="eth0" ' > /etc/default/isc-dhcp-server
 
+echo 'default-lease-time 600;
+max-lease-time 7200;
+
+authoritative;
+
+subnet 10.34.1.0 netmask 255.255.255.0 {
+}
+
+subnet 10.34.2.0 netmask 255.255.255.0 {
+}
+
+subnet 10.34.3.0 netmask 255.255.255.0 {
+    range 10.34.3.16 10.34.3.32;
+    range 10.34.3.64 10.34.3.80;
+    option routers 10.34.3.200;
+    option broadcast-address 10.34.3.255;
+    option domain-name-servers 10.34.1.2;
+    default-lease-time 180;
+    max-lease-time 5760;
+}
+
+subnet 10.34.4.0 netmask 255.255.255.0 {
+    range 10.34.4.12 10.34.4.20;
+    range 10.34.4.160 10.34.4.168;
+    option routers 10.34.4.200;
+    option broadcast-address 10.34.4.255;
+    option domain-name-servers 10.34.1.2;
+    default-lease-time 720;
+    max-lease-time 5760;
+}' > /etc/dhcp/dhcpd.conf
+
+service isc-dhcp-server restart
+service isc-dhcp-server status
+```
+
+### Pada Aura (DHCP Relay) di `/root/.bashrc`
+```
+apt-get update
+apt-get install isc-dhcp-relay -y
+service isc-dhcp-relay start
+
+echo 'SERVERS="10.34.1.1"
+INTERFACES="eth3 eth4"
+OPTIONS=""' > /etc/default/isc-dhcp-relay
+
+echo 'net.ipv4.ip_forward=1' > /etc/sysctl.conf
+
+service isc-dhcp-relay restart
+```
