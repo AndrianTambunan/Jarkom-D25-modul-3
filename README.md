@@ -132,40 +132,7 @@ www             IN      CNAME   riegel.canyon.d25.com.
 service bind9 restart
 ```
 
-## Soal 1
-Semua CLIENT harus menggunakan konfigurasi dari DHCP Server
-### Jawab
-Konfigurasi yang dimaksud adalah membuat topologi dengan config yang sudah ada di tiap node. Setelah topologi selesai dapat menjalankan file `~/.bashrc` sebagai berikut :
 
-Membuat konfigurasi pada semua node client yaitu `Stark, Sein, Revolte, dan Richter` di `/etc/network/interfaces`
-```
-auto eth0
-iface eth0 inet dhcp
-```
-![image](https://github.com/AndrianTambunan/Jarkom-D25-modul-3/assets/100081922/20d0a806-7951-42ee-9515-fc165351dde6)
-## Soal 2
-Client yang melalui Switch3 mendapatkan range IP dari `[prefix IP].3.16 - [prefix IP].3.32` dan `[prefix IP].3.64 - [prefix IP].3.80`
-### Jawab
-Menambahkan range pada setup DHCP sebagai berikut:
-```
-echo 'subnet 10.34.1.0 netmask 255.255.255.0 {
-}
-
-subnet 10.34.2.0 netmask 255.255.255.0 {
-}
-
-subnet 10.34.3.0 netmask 255.255.255.0 {
-    range 10.34.3.16 10.34.3.32;
-    range 10.34.3.64 10.34.3.80;
-    option routers 10.34.3.200;
-    option broadcast-address 10.34.3.255;
-    option domain-name-servers 10.34.1.2;
-    default-lease-time 180;
-    max-lease-time 5760;
-}' > /etc/dhcp/dhcpd.conf
-```
-## Soal 3
-Client yang melalui Switch4 mendapatkan range IP dari `[prefix IP].4.12 - [prefix IP].4.20` dan `[prefix IP].4.160 - [prefix IP].4.168`
 ### Jawab
 Lakukan hal yang sama pada subnet 10.34.3.0 ke subnet 10.34.4.0 sebagai berikut
 ```
