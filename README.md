@@ -142,7 +142,7 @@ Membuat konfigurasi pada semua node client yaitu `Stark, Sein, Revolte, dan Rich
 auto eth0
 iface eth0 inet dhcp
 ```
-
+![image](https://github.com/AndrianTambunan/Jarkom-D25-modul-3/assets/100081922/20d0a806-7951-42ee-9515-fc165351dde6)
 ## Soal 2
 Client yang melalui Switch3 mendapatkan range IP dari `[prefix IP].3.16 - [prefix IP].3.32` dan `[prefix IP].3.64 - [prefix IP].3.80`
 ### Jawab
