@@ -130,3 +130,13 @@ www             IN      CNAME   riegel.canyon.d25.com.
 service bind9 restart
 ```
 
+## Soal 1
+Semua CLIENT harus menggunakan konfigurasi dari DHCP Server
+
+Membuat konfigurasi pada semua node client yaitu Stark, Sein, Revolte, dan Richter di /etc/network/interfaces
+```
+auto eth0
+iface eth0 inet dhcp
+```
+
+
