@@ -139,4 +139,52 @@ auto eth0
 iface eth0 inet dhcp
 ```
 
+## Soal 2
+Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.16 - [prefix IP].3.32 dan [prefix IP].3.64 - [prefix IP].3.80 
+
+```
+echo 'subnet 10.34.1.0 netmask 255.255.255.0 {
+}
+
+subnet 10.34.2.0 netmask 255.255.255.0 {
+}
+
+subnet 10.34.3.0 netmask 255.255.255.0 {
+    range 10.34.3.16 10.34.3.32;
+    range 10.34.3.64 10.34.3.80;
+    option routers 10.34.3.200;
+    option broadcast-address 10.34.3.255;
+    option domain-name-servers 10.34.1.2;
+    default-lease-time 180;
+    max-lease-time 5760;
+}' > /etc/dhcp/dhcpd.conf
+```
+## Soal 3
+Client yang melalui Switch4 mendapatkan range IP dari [prefix IP].4.12 - [prefix IP].4.20 dan [prefix IP].4.160 - [prefix IP].4.168
+echo 'subnet 10.34.1.0 netmask 255.255.255.0 {
+}
+
+subnet 10.34.2.0 netmask 255.255.255.0 {
+}
+
+subnet 10.34.3.0 netmask 255.255.255.0 {
+    range 10.34.3.16 10.34.3.32;
+    range 10.34.3.64 10.34.3.80;
+    option routers 10.34.3.200;
+    option broadcast-address 10.34.3.255;
+    option domain-name-servers 10.34.1.2;
+    default-lease-time 180;
+    max-lease-time 5760;
+}
+
+subnet 10.34.4.0 netmask 255.255.255.0 {
+    range 10.34.4.12 10.34.4.20;
+    range 10.34.4.160 10.34.4.168;
+    option routers 10.34.4.200;
+    option broadcast-address 10.34.4.255;
+    option domain-name-servers 10.34.1.2;
+    default-lease-time 720;
+    max-lease-time 5760;
+}' > /etc/dhcp/dhcpd.conf
+
 
