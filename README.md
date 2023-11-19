@@ -71,7 +71,8 @@ iface eth0 inet static
 ```
 ## Soal 0
 Setelah mengalahkan Demon King, perjalanan berlanjut. Kali ini, kalian diminta untuk melakukan register domain berupa `riegel.canyon.yyy.com` untuk worker Laravel dan granz.channel.yyy.com untuk worker PHP (0) mengarah pada worker yang memiliki `IP [prefix IP].x.1.`
-
+### Jawab
+Jalankan script berikut untuk setup DNS :
 ### Pada Heiter di /root/.bashrc
 ```
 echo 'nameserver 192.168.122.1' > /etc/resolv.conf
@@ -133,6 +134,8 @@ service bind9 restart
 
 ## Soal 1
 Semua CLIENT harus menggunakan konfigurasi dari DHCP Server
+### Jawab
+Konfigurasi yang dimaksud adalah membuat topologi dengan config yang sudah ada di tiap node. Setelah topologi selesai dapat menjalankan file `~/.bashrc` sebagai berikut :
 
 Membuat konfigurasi pada semua node client yaitu `Stark, Sein, Revolte, dan Richter` di `/etc/network/interfaces`
 ```
@@ -142,7 +145,8 @@ iface eth0 inet dhcp
 
 ## Soal 2
 Client yang melalui Switch3 mendapatkan range IP dari `[prefix IP].3.16 - [prefix IP].3.32` dan `[prefix IP].3.64 - [prefix IP].3.80`
-
+### Jawab
+Menambahkan range pada setup DHCP sebagai berikut:
 ```
 echo 'subnet 10.34.1.0 netmask 255.255.255.0 {
 }
@@ -162,6 +166,8 @@ subnet 10.34.3.0 netmask 255.255.255.0 {
 ```
 ## Soal 3
 Client yang melalui Switch4 mendapatkan range IP dari `[prefix IP].4.12 - [prefix IP].4.20` dan `[prefix IP].4.160 - [prefix IP].4.168`
+### Jawab
+Lakukan hal yang sama pada subnet 10.34.3.0 ke subnet 10.34.4.0 sebagai berikut
 ```
 echo 'subnet 10.34.1.0 netmask 255.255.255.0 {
 }
@@ -192,7 +198,8 @@ subnet 10.34.4.0 netmask 255.255.255.0 {
 
 ## Soal 4
 Client mendapatkan DNS dari `Heiter` dan dapat terhubung dengan internet melalui DNS tersebut
-
+### Jawab
+Dapat dilakukan dengan ping ke google pada client. sebelumnya perlu jalankan relay sebagai berikut :
 ### Pada Himmel (DHCP Server) di `/root/.bashrc`
 ```
 echo 'nameserver 192.168.122.1' > /etc/resolv.conf
