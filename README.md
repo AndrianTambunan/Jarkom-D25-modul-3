@@ -7,8 +7,6 @@
 
 ## Topologi dan Konfigurasi Node
 ### Aura (DHCP Relay)
-
-### Himmel (DHCP Server)
 ```
 # DHCP config for eth0
 auto eth0
@@ -38,7 +36,36 @@ iface eth4 inet static
 	address 10.34.4.200
 	netmask 255.255.255.0
 ```
+### Himmel (DHCP Server)
+```
+auto eth0
+iface eth0 inet static
+	address 10.34.1.1
+	netmask 255.255.255.0
+	gateway 10.34.1.200
+```
 ### Heiter (DNS Server)
+```
+auto eth0
+iface eth0 inet static
+	address 10.34.1.2
+	netmask 255.255.255.0
+	gateway 10.34.1.200
+```
 ### Denken (Database Server)
+```
+auto eth0
+iface eth0 inet static
+	address 10.34.2.1
+	netmask 255.255.255.0
+	gateway 10.34.2.200
+```
 ### Eisen (Load Balancer)
+```
+auto eth0
+iface eth0 inet static
+	address 10.34.2.2
+	netmask 255.255.255.0
+	gateway 10.34.2.200
+```
 ### 
