@@ -257,3 +257,34 @@ echo 'net.ipv4.ip_forward=1' > /etc/sysctl.conf
 
 service isc-dhcp-relay restart
 ```
+## Soal 5
+Lama waktu DHCP server meminjamkan alamat IP kepada Client yang melalui Switch3 selama 3 menit sedangkan pada client yang melalui Switch4 selama 12 menit. Dengan waktu maksimal dialokasikan untuk peminjaman alamat IP selama 96 menit.
+### Jawab
+Untuk melakukan hal ini, kita bisa menambahkan `default-lease-time` yaitu waktu default dan `max-lease-time` yaitu waktu maksimal pada node Himmel. Untuk Switch3 kita atur sebagai berikut:
+```
+subnet 10.34.3.0 netmask 255.255.255.0 {
+    range 10.34.3.16 10.34.3.32;
+    range 10.34.3.64 10.34.3.80;
+    option routers 10.34.3.200;
+    option broadcast-address 10.34.3.255;
+    option domain-name-servers 10.34.1.2;
+    default-lease-time 180;
+    max-lease-time 5760;
+}
+```
+Dengan `default-lease-time` 180 secs yaitu 3 menit dan `max-lease-time` yaitu 5760 secs yaitu 96 menit.
+
+
+Untuk Switch4 kita atur sebagai berikut:
+```
+subnet 10.34.4.0 netmask 255.255.255.0 {
+    range 10.34.4.12 10.34.4.20;
+    range 10.34.4.160 10.34.4.168;
+    option routers 10.34.4.200;
+    option broadcast-address 10.34.4.255;
+    option domain-name-servers 10.34.1.2;
+    default-lease-time 720;
+    max-lease-time 5760;
+}
+```
+Dengan` default-lease-time` 720 secs yaitu 12 menit dan `max-lease-time' yaitu 5760 secs yaitu 96 menit.
