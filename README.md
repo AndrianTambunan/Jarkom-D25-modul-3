@@ -287,4 +287,4 @@ subnet 10.34.4.0 netmask 255.255.255.0 {
     max-lease-time 5760;
 }
 ```
-Dengan` default-lease-time` 720 secs yaitu 12 menit dan `max-lease-time' yaitu 5760 secs yaitu 96 menit.
+Dengan` default-lease-time` 720 secs yaitu 12 menit dan `max-lease-time` yaitu 5760 secs yaitu 96 menit.
